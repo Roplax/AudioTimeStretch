@@ -59,14 +59,14 @@ int main(int argc, char *argv[]) {
 	}
 
 	//initialize input and output buffers
-	printf("Initializing input and output buffers\n");
+	printf("Initializing input and output buffers for %d samples and %d channels\n",originalSampleNum, info.num_channels);
 	printf("Initializing allSamples\n");
 	int_fast32_t allSamples[originalSampleNum][info.num_channels];
 	printf("Initializing outputSamples\n");
 	int_fast32_t outputSamples[info.num_samples][info.num_channels];
 
 	//zero out outputSamples
-	printf("Zeroing out outputSamples");
+	printf("Zeroing out outputSamples\n");        
 	for (int i = 0; i < info.num_samples; i++) {
 		for (int j = 0; j < info.num_channels - 1; j++) {
 			outputSamples[i][j] = 0;
@@ -80,7 +80,8 @@ int main(int argc, char *argv[]) {
 			fread(&allSamples[i][j], info.bits_per_sample/8, 1, fp);
 		}
 	}
-
+	
+        printf("Processing to produce outputSamples\n");  
 	//read each frame, window it, and copy it to the output buffer
 	for (int i = 0; i < gammaLength - 2; i++) { //loop through each element of sigma
 		int_fast32_t frame[sigmaInterval][info.num_channels];
@@ -95,7 +96,7 @@ int main(int argc, char *argv[]) {
 		}
 
 	}
-
+        printf("Writing produce outputSamples\n");  
 	//write all samples
 	int_fast32_t sample[info.num_channels];
 	for (int i = 0; i < info.num_samples; i++) {
