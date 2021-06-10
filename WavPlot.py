@@ -18,7 +18,11 @@ for arg in sys.argv[1:]:
         samplerate, data = wavfile.read(wav_fname)
         try:
             length = data.shape[0] / samplerate
+<<<<<<< HEAD
             print(f"number of channels = {data.shape[1]}", f"length = {length}s")
+=======
+            print(f"num Audio channels = {data.shape[1]}", f"length = {length}s")
+>>>>>>> devel
             time = np.linspace(0., length, data.shape[0])
             for i in range(data.shape[1]):
                 plt.plot(time, data[:, i], label=wav_fname.split(".")[0]+"Channel"+str(i))
