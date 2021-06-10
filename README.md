@@ -14,3 +14,5 @@ Refer to : https://www.audiolabs-erlangen.de/content/05-fau/professor/00-mueller
  2. Apply them on a simple sinusoidal  signal,  save the data produced to a text file
  3. Apply them to  sample wav files.
  
+Bonus:
+ Python module to plot wav files for debugging
