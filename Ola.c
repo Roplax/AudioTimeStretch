@@ -6,6 +6,7 @@
 
 #define OVERLAP 0.5
 #define WINDOWLENGTH 4096
+#define SIZECAP 400000
 
 //works better with making files shorter than it does with making them longer
 //use stretchFactor < 1 for shorter files
@@ -33,6 +34,16 @@ int main(int argc, char *argv[]) {
 
 
 	read_wav_info(&info, fp);
+
+	int sizeInBits = info.num_samples * info.num_channels * info.bits_per_sample;
+
+	if (sizeInBits > SIZECAP) {
+		printf("File is too big, must be less than 50 kB\n");
+		return 1;
+	} else if (sizeInBits * stretchFactor > SIZECAP * 4) {
+		printf("stretchFactor is too big\n");
+		return 1;
+	}
 
 	int originalSampleNum = info.num_samples;
 	info.num_samples *= stretchFactor;
