@@ -16,6 +16,7 @@ for arg in sys.argv[1:]:
         print("Processing:", arg)
         wav_fname=arg
         samplerate, data = wavfile.read(wav_fname)
+        print ( f"samplerate={samplerate} data={data}")
         try:
             length = data.shape[0] / samplerate
             print(f"number of channels = {data.shape[1]}", f"length = {length}s")
@@ -23,7 +24,8 @@ for arg in sys.argv[1:]:
             for i in range(data.shape[1]):
                 plt.plot(time, data[:, i], label=wav_fname.split(".")[0]+"Channel"+str(i))
         except Exception as e:
-            print (str(e))       
+            print (str(e))   
+            print ( f"samplerate={samplerate} data={data}")   
 
 plt.legend()
 plt.xlabel("Time [s]")
