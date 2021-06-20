@@ -16,13 +16,20 @@ for arg in sys.argv[1:]:
         print("Processing:", arg)
         wav_fname=arg
         samplerate, data = wavfile.read(wav_fname)
-        print ( f"samplerate={samplerate} data={data}")
+        print ( f"samplerate={samplerate} data={data} data.shape={data.shape}")
         try:
+            if(len(data.shape) ==1):
+                numchannels=1
+            else:
+                numchannels=data.shape[1]
             length = data.shape[0] / samplerate
-            print(f"number of channels = {data.shape[1]}", f"length = {length}s")
+            print(f"number of channels = {numchannels}", f"length = {length}s")
             time = np.linspace(0., length, data.shape[0])
-            for i in range(data.shape[1]):
-                plt.plot(time, data[:, i], label=wav_fname.split(".")[0]+"Channel"+str(i))
+            if numchannels==1:
+                plt.plot(time, data[:], label=wav_fname.split(".")[0]+"Channel1")
+            else:    
+                for i in range(numchannels):
+                    plt.plot(time, data[:, i], label=wav_fname.split(".")[0]+"Channel"+str(i))
         except Exception as e:
             print (str(e))   
             print ( f"samplerate={samplerate} data={data}")   
